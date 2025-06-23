@@ -1,0 +1,508 @@
+:root {
+    --bg-dark: #0a0b0e;
+    --panel-bg: rgba(18, 20, 28, 0.65);
+    --panel-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f0f2f5;
+    --text-secondary: #8b92a5;
+    --text-muted: #51586a;
+    
+    --buy-color: #00d26a;
+    --buy-color-muted: rgba(0, 210, 106, 0.15);
+    --buy-color-hover: #00ea76;
+    
+    --sell-color: #f6465d;
+    --sell-color-muted: rgba(246, 70, 93, 0.15);
+    --sell-color-hover: #ff5b71;
+    
+    --accent-glow: 0 0 20px rgba(0, 210, 106, 0.2);
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    
+    --border-radius: 12px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(0, 210, 106, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(246, 70, 93, 0.03) 0%, transparent 40%);
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 24px;
+}
+
+.neon-border-bottom {
+    position: relative;
+}
+
+.neon-border-bottom::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, var(--buy-color), #0099ff);
+    border-radius: 6px;
+    box-shadow: var(--accent-glow);
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.badge {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-left: 8px;
+    color: var(--text-secondary);
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--panel-bg);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--panel-border);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-muted);
+}
+
+.dot.active {
+    background-color: var(--buy-color);
+    box-shadow: 0 0 8px var(--buy-color);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.status-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Layout */
+.grid-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr 350px;
+    gap: 24px;
+    flex: 1;
+    min-height: 0; /* Important for scrollable children */
+}
+
+/* Glass Panels */
+.glass-panel {
+    background: var(--panel-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.panel-header {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--panel-border);
+}
+
+.panel-header h2 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.highlight-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-left: 8px;
+    font-weight: 400;
+}
+
+/* Forms */
+.order-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+input, select {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--panel-border);
+    color: var(--text-primary);
+    padding: 12px;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    outline: none;
+    transition: all var(--transition-speed);
+}
+
+input:focus, select:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.input-row {
+    display: flex;
+    gap: 12px;
+}
+
+/* Side Selector Radio Buttons */
+.side-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 12px;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group label {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.btn-buy-outline {
+    background: var(--buy-color-muted);
+    color: var(--buy-color);
+    border-color: rgba(0, 210, 106, 0.2);
+}
+
+.btn-sell-outline {
+    background: var(--sell-color-muted);
+    color: var(--sell-color);
+    border-color: rgba(246, 70, 93, 0.2);
+}
+
+input[type="radio"]#side-buy:checked + label {
+    background: var(--buy-color);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 210, 106, 0.4);
+}
+
+input[type="radio"]#side-sell:checked + label {
+    background: var(--sell-color);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(246, 70, 93, 0.4);
+}
+
+/* Submit Button */
+.btn-submit {
+    margin-top: 10px;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+}
+
+.btn-buy {
+    background: var(--buy-color);
+}
+
+.btn-buy:hover {
+    background: var(--buy-color-hover);
+    box-shadow: 0 0 15px rgba(0, 210, 106, 0.4);
+}
+
+.btn-sell {
+    background: var(--sell-color);
+}
+
+.btn-sell:hover {
+    background: var(--sell-color-hover);
+    box-shadow: 0 0 15px rgba(246, 70, 93, 0.4);
+}
+
+/* Form Message */
+.form-msg {
+    font-size: 0.85rem;
+    text-align: center;
+    min-height: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.form-msg.success {
+    color: var(--buy-color);
+    opacity: 1;
+}
+
+.form-msg.error {
+    color: var(--sell-color);
+    opacity: 1;
+}
+
+/* Order Book View */
+.orderbook-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.book-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.book-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: right;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.book-header span:first-child { text-align: left; }
+
+.book-body {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.asks-section .book-body {
+    justify-content: flex-end; /* Asks list from bottom up */
+}
+
+.book-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: right;
+    padding: 4px 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.book-row:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.book-row span:first-child { text-align: left; }
+
+.ask-row .price { color: var(--sell-color); }
+.bid-row .price { color: var(--buy-color); }
+
+.size, .total { color: var(--text-secondary); }
+
+/* Depth Bar Background */
+.depth-bar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+    transition: width 0.3s ease;
+}
+
+.ask-row .depth-bar { background-color: var(--sell-color); }
+.bid-row .depth-bar { background-color: var(--buy-color); }
+
+/* Spread Indicator */
+.spread-indicator {
+    text-align: center;
+    padding: 10px 0;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--panel-border);
+    border-bottom: 1px solid var(--panel-border);
+    margin: 8px 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Trades Panel */
+.trades-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+.trades-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: right;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.trades-header span:first-child { text-align: left; }
+
+.trades-body {
+    flex: 1;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.trade-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: right;
+    padding: 6px 12px;
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+.trade-row span:first-child { 
+    text-align: left; 
+    color: var(--text-muted);
+}
+
+.trade-row.buy .price { color: var(--buy-color); }
+.trade-row.sell .price { color: var(--sell-color); }
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.1);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        background: transparent;
+    }
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .grid-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+    .trades-panel {
+        grid-column: 1 / -1;
+        height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-layout {
+        grid-template-columns: 1fr;
+    }
+    .app-container {
+        height: auto;
+    }
+    .orderbook-panel, .trades-panel {
+        height: 400px;
+    }
+}

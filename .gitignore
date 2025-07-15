@@ -30,3 +30,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Enterprise / OS overrides
+.DS_Store
+.idea/
+.vscode/
+*.iml
+*.log

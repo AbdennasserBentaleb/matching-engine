@@ -16,7 +16,7 @@ public class AsyncTradePersister {
         this.tradeRepository = tradeRepository;
     }
 
-    @Async
+    @Async("tradeEventExecutor")
     @EventListener
     public void handleTradeExecutedEvent(Trade trade) {
         TradeEntity entity = new TradeEntity(

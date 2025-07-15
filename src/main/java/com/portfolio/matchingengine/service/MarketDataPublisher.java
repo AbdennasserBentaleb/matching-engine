@@ -22,7 +22,7 @@ public class MarketDataPublisher {
         this.objectMapper = objectMapper;
     }
 
-    @Async
+    @Async("tradeEventExecutor")
     @EventListener
     @SuppressWarnings("null")
     public void handleTradeExecutedEvent(Trade trade) {

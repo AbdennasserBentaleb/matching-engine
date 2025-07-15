@@ -14,4 +14,4 @@ USER 65532:65532
 
 VOLUME /tmp
 COPY --from=build --chown=65532:65532 /app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","app.jar"]

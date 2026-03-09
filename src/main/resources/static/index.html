@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In-Memory Matching Engine</title>
+    <meta name="description" content="High-performance order matching engine portfolio project.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header neon-border-bottom">
+            <div class="logo-container">
+                <div class="logo-icon"></div>
+                <h1>Matching Engine <span class="badge">In-Memory</span></h1>
+            </div>
+            <div class="status-indicator">
+                <div class="dot active"></div>
+                <span class="status-text">System Live</span>
+            </div>
+        </header>
+
+        <main class="dashboard grid-layout">
+            <!-- Left Panel: Order Entry -->
+            <section class="panel order-entry-panel glass-panel">
+                <div class="panel-header">
+                    <h2>Place Order</h2>
+                </div>
+                <form id="order-form" class="order-form">
+                    <div class="input-group">
+                        <label for="ticker">Ticker Symbol</label>
+                        <select id="ticker" name="ticker" required>
+                            <option value="BTC-USD">BTC-USD</option>
+                            <option value="ETH-USD">ETH-USD</option>
+                            <option value="SOL-USD">SOL-USD</option>
+                        </select>
+                    </div>
+
+                    <div class="side-selector">
+                        <label>Side</label>
+                        <div class="radio-group">
+                            <input type="radio" id="side-buy" name="side" value="BUY" checked>
+                            <label for="side-buy" class="btn-buy-outline">BUY</label>
+                            
+                            <input type="radio" id="side-sell" name="side" value="SELL">
+                            <label for="side-sell" class="btn-sell-outline">SELL</label>
+                        </div>
+                    </div>
+
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="price">Price ($)</label>
+                            <input type="number" id="price" name="price" step="0.01" min="0.01" placeholder="0.00" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" name="quantity" step="0.01" min="0.01" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit-btn" class="btn-submit btn-buy">Submit Order</button>
+                    <div id="form-msg" class="form-msg"></div>
+                </form>
+            </section>
+
+            <!-- Middle Panel: Order Book -->
+            <section class="panel orderbook-panel glass-panel">
+                <div class="panel-header">
+                    <h2>Order Book <span id="current-ticker-display" class="highlight-text">BTC-USD</span></h2>
+                </div>
+                <div class="orderbook-container">
+                    <!-- Asks (Sells) -->
+                    <div class="book-section asks-section">
+                        <div class="book-header">
+                            <span>Price</span>
+                            <span>Qty</span>
+                            <span>Total</span>
+                        </div>
+                        <div id="asks-body" class="book-body">
+                            <!-- Asks populated via JS -->
+                            <div class="loading-shimmer"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="spread-indicator">
+                        <span>Spread</span>
+                        <span id="spread-value" class="spread-value">-</span>
+                    </div>
+
+                    <!-- Bids (Buys) -->
+                    <div class="book-section bids-section">
+                        <div id="bids-body" class="book-body">
+                            <!-- Bids populated via JS -->
+                            <div class="loading-shimmer"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Trade History -->
+            <section class="panel trades-panel glass-panel">
+                <div class="panel-header">
+                    <h2>Recent Trades</h2>
+                </div>
+                <div class="trades-container">
+                    <div class="trades-header">
+                        <span>Time</span>
+                        <span>Price</span>
+                        <span>Qty</span>
+                    </div>
+                    <div id="trades-body" class="trades-body">
+                        <!-- Trades populated via JS -->
+                        <div class="empty-state">No recent trades in session.</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
